@@ -5,7 +5,6 @@ import com.proximity.service.SearchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,7 +18,6 @@ public class SearchController {
         this.searchService = service;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/restaurant/search")
     public ResponseEntity searchDocuments(@RequestBody SearchRequestParams document) throws IOException {
         ResponseEntity responseEntity = new ResponseEntity(searchService.inProximity(document), HttpStatus.OK);

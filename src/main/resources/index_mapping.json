@@ -1,4 +1,36 @@
 {
+  "settings": {
+    "analysis": {
+      "tokenizer": {
+        "split_on_non_word": {
+          "type": "pattern",
+          "pattern": ","
+        },
+        "tokenizer_for_autocomplete": {
+          "type": "edge_ngram",
+          "min_gram": 1,
+          "max_gram": 20,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      },
+      "analyzer": {
+        "rebuilt_pattern": {
+          "tokenizer": "split_on_non_word",
+          "filter": [
+            "lowercase",
+            "trim"
+          ]
+        },
+        "autocomplete": {
+          "tokenizer": "tokenizer_for_autocomplete"
+        }
+      }
+    },
+    "max_ngram_diff": 50
+  },
   "mappings": {
     "properties": {
       "address": {
@@ -21,6 +53,7 @@
       },
       "city": {
         "type": "text",
+        "analyzer": "autocomplete",
         "fields": {
           "keyword": {
             "type": "keyword",
@@ -42,6 +75,7 @@
       },
       "cusine": {
         "type": "text",
+        "analyzer": "rebuilt_pattern",
         "fields": {
           "keyword": {
             "type": "keyword",
